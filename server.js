@@ -46,9 +46,9 @@ server.listen(PORT); //Serverni ishga tushir ! Va shu portni tinglab tur!
 // NEW CODE 19 LESSON
 app.post("/create-item", (req, res) => {
   // ma'lumotni databasega yozish uchun
-  console.log(req.body);
+  console.log(req.body, "reques body qismi");
   // res.json({ test: "success" });
-  res.send("So'rov qabul qilindi");
+  res.send("So'rov qabul qilindi!");
 });
 
 app.get("/", function (req, res) {
@@ -62,5 +62,5 @@ app.get("/", function (req, res) {
 //res.render() — Express’ning maxsus funksiyasi.
 //U EJS faylni olib, ichidagi  kodlarini JS orqali ishlab, yakuniy HTMLga aylantiradi va uni brauzerga jo‘natadi.
 
-//  * git reset --hard * => yangi yozgan kodlar kerak emas gir dagi oxirgi commitga qaytish
+//  * git reset --hard * => yangi yozgan kodlar kerak emas git dagi oxirgi commitga qaytish
 // * git clean -df * =>  git repository ichidagi keraksiz, git kuzatmayotgan (untracked) fayl va papkalarni o‘chirib tashlaydi.
