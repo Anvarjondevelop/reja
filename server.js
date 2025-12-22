@@ -3,7 +3,7 @@ console.log("Web Serverni boshqarish");
 const express = require("express");
 const app = express();
 const http = require("http");
-
+// Express => bu Node.js da web server qurishni juda osonlashtirib beradigan framework
 // 1 Kirish code
 // express ga kirib kelayotgan ma'lumotlarga bog'liq bo'lgan code
 app.use(express.static("public")); // Bu harqanday brawserdan kirib kelayotgan so'rovlar uchun public folderi ochiq degani
@@ -13,8 +13,10 @@ app.use(express.urlencoded({ extended: true })); // Agar HTML  formdan malumot y
 // 2 Session code
 
 // 3 Views code
-app.set("view", "views");
-app.set("view engine", "ejs");
+//SSR — Server Side Rendering
+//SSR — HTML sahifani serverning o‘zi tayyorlab, browserga tayyor holatda yuborishi.
+app.set("view", "views"); // => EJS fayllar (front-end template) qayerda joylashganini ko'rsatadi.
+app.set("view engine", "ejs"); // => Express’ga: “HTMLni EJS orqali generatsiya qilamiz” deb aytadi.
 
 // 4 Routing code
 
