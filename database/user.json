@@ -1,0 +1,39 @@
+{
+  "id": 1,
+  "name": "David",
+  "profession": "Software Engineer",
+  "age": 20,
+  "residence": "S.Korea",
+  "languages": ["Uzbek", "Korean", "English"],
+  "skills": ["Html", "Css", "Js", "NodeJS", "Python"],
+  "extra_skills": [
+    "Bootstrap",
+    "Materialize",
+    "Sytling, Sass",
+    "Django, Flask",
+    "GIT Knowledge"
+  ],
+  "work_place": "IT Company",
+  "service_desc": "I provide end-to-end software engineering services focused on building reliable, scalable, and maintainable applications.",
+  "about_me": "I will change the tech game by building innovative software, solving real problems, and pushing technology beyond today’s limits.",
+  "city": "Tashkent",
+  "title": ["Flower", "Seedlings", "Gardner", "Old", "New"],
+  "flower_desc": ["What is a Flower?", "What is a Seeding?", "Who is Gardner"],
+  "flower_name": [
+    "Tulip",
+    "Daffodil",
+    "Poppy",
+    "Sunflower",
+    "Bluebell",
+    "Rose",
+    "Snowdrop",
+    "Cherry",
+    "blossom"
+  ],
+  "flower_price": ["15$", "25$", "12$", "20$", "35$", "22$", "19$", "9$"],
+  "famous_words": ["World is beautiful with Flowers"],
+  "email": "anvarjondevelop@gmail.com",
+  "address": "S.Korea, Daegu",
+  "phone": "010-9562-2205",
+  "famous_name": ["Steve Jobs"]
+}

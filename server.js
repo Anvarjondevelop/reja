@@ -1,8 +1,18 @@
-console.log("Web Serverni boshqarish");
+console.log("Web Serverni boshlash");
 
 const express = require("express");
 const app = express();
 const http = require("http");
+const fs = require("fs");
+
+let user;
+fs.readFile("database/user.json", "utf-8", (err, data) => {
+  if (err) {
+    console.log("Error:", err);
+  } else {
+    user = JSON.parse(data); // jsonda kelgan datani objectga o'zgartirib user o'zgaruvchiga tenglayapdi
+  }
+});
 // Express => bu Node.js da web server qurishni juda osonlashtirib beradigan framework
 // 1 Kirish code
 // express ga kirib kelayotgan ma'lumotlarga bog'liq bo'lgan code
@@ -38,22 +48,27 @@ app.set("view engine", "ejs"); // => Express’ga: “HTMLni EJS orqali generats
 
 const server = http.createServer(app); // “Node.js, iltimos, Express app bilan ishlaydigan server yaratib ber” degani.
 let PORT = 3000;
-server.listen(PORT); //Serverni ishga tushir ! Va shu portni tinglab tur!
-//, function () {
-//   console.log(`Server ${PORT}- portda muvaffaqiyatli ishga tushdi`);
-// });
+server.listen(PORT, function () {
+  console.log(`Server ${PORT}- portda muvaffaqiyatli ishga tushdi`);
+}); // Serverni ishga tushir va Portni eshit !
 
 // NEW CODE 19 LESSON
-app.post("/create-item", (req, res) => {
-  // ma'lumotni databasega yozish uchun
-  console.log(req.body, "reques body qismi");
-  // res.json({ test: "success" });
-  res.send("So'rov qabul qilindi!");
-});
+// app.post("/create-item", (req, res) => {
+//   // ma'lumotni databasega yozish uchun
+//   console.log(req.body, "reques body qismi");
+//   // res.json({ test: "success" });
+//   res.send("So'rov qabul qilindi!");
+// });
 
-app.get("/", function (req, res) {
-  // ma'lumot o'qish uchun
-  res.render("harid");
+// app.get("/", function (req, res) {
+//   // ma'lumot o'qish uchun
+//   res.render("harid");
+// });
+
+app.get("/author", (req, res) => {
+  res.render("author", { user: user }); // res.render("page", { NIMA_NOM_BILAN: QAYSI_MAʼLUMOT })
+  // "qaysi ma'lumot"  deganda database dan kelgan json ma'lumotni object sifatida qbul qilib olgan o'zgaruvchi nomini yozamiz
+  // 2- qiymat manashu page uchun kerak bo'ladigan ma'lumotlar manbai fake database real  projectda bunday qilinmaydi
 });
 
 //19- Dars
