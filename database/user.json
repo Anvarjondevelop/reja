@@ -2,7 +2,7 @@
   "id": 1,
   "name": "David",
   "profession": "Software Engineer",
-  "age": 20,
+  "age": 23,
   "residence": "S.Korea",
   "languages": ["Uzbek", "Korean", "English"],
   "skills": ["Html", "Css", "Js", "NodeJS", "Python"],
@@ -35,5 +35,6 @@
   "email": "anvarjondevelop@gmail.com",
   "address": "S.Korea, Daegu",
   "phone": "010-9562-2205",
-  "famous_name": ["Steve Jobs"]
+  "famous_name": ["Steve Jobs"],
+  "isAvailable": "true"
 }
