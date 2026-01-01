@@ -139,3 +139,17 @@
 //   "'e'",
 //   "harf qatnashgan"
 // );
+
+function countnumber(str) {
+  let count = 0;
+
+  for (let char of str) {
+    if (char >= "0" && char <= "9") {
+      count++;
+    }
+  }
+
+  return count;
+}
+
+console.log(countnumber("njd9rjv33fjf0ef32fj24"));
