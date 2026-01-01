@@ -118,24 +118,24 @@
 // console.log("passed here 1");
 
 // TASK A
-function countLetter(letter, word) {
-  let count = 0;
+// function countLetter(letter, word) {
+//   let count = 0;
 
-  letter = letter.toLowerCase();
-  word = word.toLowerCase();
+//   letter = letter.toLowerCase();
+//   word = word.toLowerCase();
 
-  for (let i = 0; i < word.length; i++) {
-    if (word[i] === letter) {
-      count++;
-    }
-  }
+//   for (let i = 0; i < word.length; i++) {
+//     if (word[i] === letter) {
+//       count++;
+//     }
+//   }
 
-  return count;
-}
+//   return count;
+// }
 
-console.log(
-  "Bu jumlada",
-  countLetter("e", "Software Engineer"),
-  "'e'",
-  "harf qatnashgan"
-);
+// console.log(
+//   "Bu jumlada",
+//   countLetter("e", "Software Engineer"),
+//   "'e'",
+//   "harf qatnashgan"
+// );

@@ -36,6 +36,10 @@ app.set("view engine", "ejs"); // => Express’ga: “HTMLni EJS orqali generats
 //   res.end(`<h1 style="background: red">Siz asosiy oynadasiz</h1>`); //foydalanuvchiga javobni yubor va aloqa tugasin
 // });
 
+app.get("/", function (req, res) {
+  res.render("reja");
+});
+
 // app.get("/hello", function (req, res) {
 //   //  Bu qator route (yo‘l) yaratadi.
 //   res.end(`<h1 style="background: red">HELLO WORLD by David</h1>`); //foydalanuvchiga javobni yubor va aloqa tugasin
@@ -49,16 +53,18 @@ app.set("view engine", "ejs"); // => Express’ga: “HTMLni EJS orqali generats
 const server = http.createServer(app); // “Node.js, iltimos, Express app bilan ishlaydigan server yaratib ber” degani.
 let PORT = 3000;
 server.listen(PORT, function () {
-  console.log(`Server ${PORT}- portda muvaffaqiyatli ishga tushdi`);
+  console.log(
+    `Server ${PORT}- portda muvaffaqiyatli ishga tushdi, http://localhost:${PORT}`
+  );
 }); // Serverni ishga tushir va Portni eshit !
 
 // NEW CODE 19 LESSON
-// app.post("/create-item", (req, res) => {
-//   // ma'lumotni databasega yozish uchun
-//   console.log(req.body, "reques body qismi");
-//   // res.json({ test: "success" });
-//   res.send("So'rov qabul qilindi!");
-// });
+app.post("/create-item", (req, res) => {
+  // ma'lumotni databasega yozish uchun
+  console.log(req.body, "reques body qismi");
+  // res.json({ test: "success" });
+  res.send("So'rov qabul qilindi!");
+});
 
 // app.get("/", function (req, res) {
 //   // ma'lumot o'qish uchun
