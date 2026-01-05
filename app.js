@@ -27,6 +27,7 @@ Ya’ni:
 */
 const db = require("./server").db(); // server.js dagi db() bilan mos// server.js da export qilgan nom //server fayldan kelgan object, ichidagi db nomli funksiyani oladi //db() → funksiya MongoDB ga ulanadi, database qaytaradi
 //db bu mongodb ning database objecti
+const mongodb = require("mongodb");
 
 let user;
 fs.readFile("database/user.json", "utf-8", (err, data) => {
@@ -106,6 +107,22 @@ app.post("/create-item", (req, res) => {
     // console.log(data.ops);
     res.json(data.ops[0]);
   });
+});
+
+app.post("/delete-item", (req, res) => {
+  const id = req.body.id;
+
+  db.collection("plans").deleteOne(
+    { _id: new mongodb.ObjectId(id) },
+    (err, data) => {
+      if (err) {
+        console.log(err);
+        res.json({ state: "error" });
+      } else {
+        res.json({ state: "success" });
+      }
+    }
+  );
 });
 
 app.get("/", (req, res) => {
