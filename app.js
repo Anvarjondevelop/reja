@@ -103,14 +103,8 @@ app.post("/create-item", (req, res) => {
   const new_reja = req.body.reja;
   // console.log(req.body);
   db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
-    // console.log(data.ops)
-    // res.json(data.ops[0]);
-    if (err) {
-      console.log(err);
-      resolveInclude("Something went wrong");
-    } else {
-      res.end("successfully added");
-    }
+    // console.log(data.ops);
+    res.json(data.ops[0]);
   });
 });
 
@@ -123,7 +117,7 @@ app.get("/", (req, res) => {
         console.log(err);
         res.send("Something went wrong");
       } else {
-        console.log(data);
+        // console.log(data);
         res.render("reja", { items: data });
       }
     });
