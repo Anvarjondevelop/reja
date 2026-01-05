@@ -6,7 +6,27 @@ const app = express();
 const fs = require("fs");
 
 //MongoDB chaqirish
-const db = require("./server").db();
+/*
+MongoDB’da ierarxiya qanday?
+
+MongoDB tuzilishi shunday:
+
+MongoClient
+   ↓
+Database (db)
+   ↓
+Collection
+   ↓
+Document
+-------------------------
+Ya’ni:
+1- MongoClient → serverga ulanish
+2- db → aniq bitta database
+3 -collection → jadvalga o‘xshash
+4 -document → bitta yozuv (JSON)
+*/
+const db = require("./server").db(); // server.js dagi db() bilan mos// server.js da export qilgan nom //server fayldan kelgan object, ichidagi db nomli funksiyani oladi //db() → funksiya MongoDB ga ulanadi, database qaytaradi
+//db bu mongodb ning database objecti
 
 let user;
 fs.readFile("database/user.json", "utf-8", (err, data) => {
@@ -39,9 +59,17 @@ app.set("view engine", "ejs"); // => Express’ga: “HTMLni EJS orqali generats
 //   res.end(`<h1 style="background: red">Siz asosiy oynadasiz</h1>`); //foydalanuvchiga javobni yubor va aloqa tugasin
 // });
 
-app.get("/", function (req, res) {
-  res.render("reja");
-});
+// db objectni olish (null bo‘lishi mumkin)
+
+// if (!db) {
+//   console.log("MongoDB hali ulanmagan!");
+// } else {
+//   db.collection("plans")
+//     .find()
+//     .toArray()
+//     .then((data) => console.log(data))
+//     .catch((err) => console.error(err));
+// }
 
 // app.get("/hello", function (req, res) {
 //   //  Bu qator route (yo‘l) yaratadi.
@@ -54,12 +82,54 @@ app.get("/", function (req, res) {
 // });
 
 // NEW CODE 19 LESSON
+// app.post("/create-item", (req, res) => {
+//   // ma'lumotni databasega yozish uchun
+//   console.log(req.body, "reques body qismi"); // imputni name hisoblangan reja bilan ma'lumot kelyapdi
+//   // res.json({ test: "success" });
+//   const new_reja = req.body.reja;
+//   db.collection("plans").inserOne({ reja: new_reja }, (err, data) => {
+//     if (err) {
+//       console.log(err);
+//       resolveInclude("Something went wrong");
+//     } else {
+//       res.end("successfully added");
+//     }
+//   });
+// });
+
 app.post("/create-item", (req, res) => {
-  // ma'lumotni databasega yozish uchun
-  console.log(req.body, "reques body qismi");
-  // res.json({ test: "success" });
-  res.send("So'rov qabul qilindi!");
+  console.log("User entred /create-item");
+
+  const new_reja = req.body.reja;
+  // console.log(req.body);
+  db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
+    // console.log(data.ops)
+    // res.json(data.ops[0]);
+    if (err) {
+      console.log(err);
+      resolveInclude("Something went wrong");
+    } else {
+      res.end("successfully added");
+    }
+  });
 });
+
+app.get("/", (req, res) => {
+  console.log("User entred / ");
+  db.collection("plans")
+    .find()
+    .toArray((err, data) => {
+      if (err) {
+        console.log(err);
+        res.send("Something went wrong");
+      } else {
+        console.log(data);
+        res.render("reja", { items: data });
+      }
+    });
+});
+
+module.exports = app;
 
 // app.get("/", function (req, res) {
 //   // ma'lumot o'qish uchun
@@ -71,8 +141,6 @@ app.get("/author", (req, res) => {
   // "qaysi ma'lumot"  deganda database dan kelgan json ma'lumotni object sifatida qbul qilib olgan o'zgaruvchi nomini yozamiz
   // 2- qiymat manashu page uchun kerak bo'ladigan ma'lumotlar manbai fake database real  projectda bunday qilinmaydi
 });
-
-module.exports = app;
 
 //19- Dars
 // public da frontedga tegishli bo'lgan js , css, html , video, foto lar turadi shu folder hammag ochiq bo'ladi
