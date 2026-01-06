@@ -157,66 +157,82 @@
 //------------
 
 //TASK D
-class Shop {
-  constructor(non, lagmon, cola) {
-    this.products = {
-      non: non,
-      lagmon: lagmon,
-      cola: cola,
-    };
-  }
+// class Shop {
+//   constructor(non, lagmon, cola) {
+//     this.products = {
+//       non: non,
+//       lagmon: lagmon,
+//       cola: cola,
+//     };
+//   }
 
-  // hozirgi vaqtni olish uchun yordamchi method
-  _getTime() {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, "0");
-    const minutes = now.getMinutes().toString().padStart(2, "0");
-    return `${hours}:${minutes}`;
-  }
+//   // hozirgi vaqtni olish uchun yordamchi method
+//   _getTime() {
+//     const now = new Date();
+//     const hours = now.getHours().toString().padStart(2, "0");
+//     const minutes = now.getMinutes().toString().padStart(2, "0");
+//     return `${hours}:${minutes}`;
+//   }
 
-  // qoldiqni ko'rsatish
-  qoldiq() {
-    const time = this._getTime();
-    const { non, lagmon, cola } = this.products;
-    const message = `Hozir ${time}da ${non}ta non, ${lagmon}ta lagmon va ${cola}ta cola mavjud!`;
-    console.log(message);
-    return message;
-  }
+//   // qoldiqni ko'rsatish
+//   qoldiq() {
+//     const time = this._getTime();
+//     const { non, lagmon, cola } = this.products;
+//     const message = `Hozir ${time}da ${non}ta non, ${lagmon}ta lagmon va ${cola}ta cola mavjud!`;
+//     console.log(message);
+//     return message;
+//   }
 
-  // mahsulot sotish
-  sotish(product, quantity) {
-    if (!this.products[product]) {
-      console.log(`Bunday mahsulot mavjud emas: ${product}`);
-      return;
-    }
+//   // mahsulot sotish
+//   sotish(product, quantity) {
+//     if (!this.products[product]) {
+//       console.log(`Bunday mahsulot mavjud emas: ${product}`);
+//       return;
+//     }
 
-    if (this.products[product] < quantity) {
-      console.log(`Etarli ${product} yo'q!`);
-      return;
-    }
+//     if (this.products[product] < quantity) {
+//       console.log(`Etarli ${product} yo'q!`);
+//       return;
+//     }
 
-    this.products[product] -= quantity;
-    const time = this._getTime();
-    console.log(`${time}: ${quantity}ta ${product} sotildi`);
-  }
+//     this.products[product] -= quantity;
+//     const time = this._getTime();
+//     console.log(`${time}: ${quantity}ta ${product} sotildi`);
+//   }
 
-  // mahsulot qabul qilish
-  qabul(product, quantity) {
-    if (!this.products[product]) {
-      console.log(`Bunday mahsulot mavjud emas: ${product}`);
-      return;
-    }
+//   // mahsulot qabul qilish
+//   qabul(product, quantity) {
+//     if (!this.products[product]) {
+//       console.log(`Bunday mahsulot mavjud emas: ${product}`);
+//       return;
+//     }
 
-    this.products[product] += quantity;
-    const time = this._getTime();
-    console.log(`${time}: ${quantity}ta ${product} qabul qilindi`);
-  }
+//     this.products[product] += quantity;
+//     const time = this._getTime();
+//     console.log(`${time}: ${quantity}ta ${product} qabul qilindi`);
+//   }
+// }
+
+// // TEST
+// const shop = new Shop(4, 5, 2);
+
+// shop.qoldiq(); // Hozir 20:40da 4ta non, 5ta lagmon va 2ta cola mavjud!
+// shop.sotish("non", 3); // 3ta non sotildi
+// shop.qabul("cola", 4); // 4ta cola qabul qilindi
+// shop.qoldiq(); // Hozir 20:50da 1ta non, 5ta lagmon va 6ta cola mavjud!
+
+//TASK C
+function checkContent(str1, str2) {
+  // Agar uzunliklari teng bo‘lmasa — darrov false
+  if (str1.length !== str2.length) return false;
+
+  // Harflarni sort qilib solishtiramiz
+  const sorted1 = str1.split("").sort().join("");
+  const sorted2 = str2.split("").sort().join("");
+
+  return sorted1 === sorted2;
 }
 
-// TEST
-const shop = new Shop(4, 5, 2);
-
-shop.qoldiq(); // Hozir 20:40da 4ta non, 5ta lagmon va 2ta cola mavjud!
-shop.sotish("non", 3); // 3ta non sotildi
-shop.qabul("cola", 4); // 4ta cola qabul qilindi
-shop.qoldiq(); // Hozir 20:50da 1ta non, 5ta lagmon va 6ta cola mavjud!
+console.log(checkContent("mitgroup", "gmtiprou"));
+console.log(checkContent("abc", "ab"));
+console.log(checkContent("test", "taste"));
