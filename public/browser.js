@@ -31,11 +31,12 @@ document.getElementById("create-form").addEventListener("submit", (e) => {
   e.preventDefault();
 
   axios
-    .post("/create-item", { reja: createField.value })
-    .then((responce) => {
+    .post("/create-item", { reja: createField.value }) //reja? //  nomi manashu ..... : bo'lgan inputni valuesini jo'nat
+    .then((response) => {
+      // console.log(response);
       document
         .getElementById("item-list")
-        .insertAdjacentHTML("beforeend", itemTemplate(responce.data));
+        .insertAdjacentHTML("beforeend", itemTemplate(response.data));
       createField.value = "";
       createField.focus();
     })
@@ -64,6 +65,34 @@ document.addEventListener("click", function (e) {
   }
   //edit oper
   if (e.target.classList.contains("edit-me")) {
-    alert("siz edit tugmasini bosdingiz");
+    let userInput = prompt(
+      "O'zgartirish kiriting",
+      e.target.parentElement.parentElement.querySelector(".item-text").innerHTML
+    );
+    if (userInput) {
+      axios
+        .post("/edit-item", {
+          id: e.target.getAttribute("data-id"),
+          new_input: userInput,
+        })
+        .then((res) => {
+          console.log(res.data);
+          e.target.parentElement.parentElement.querySelector(
+            ".item-text"
+          ).innerHTML = userInput;
+        })
+        .catch((err) => {
+          console.log(err, "Iltimos qayta urining");
+        });
+    }
   }
 });
+
+document.getElementById("clean-all").addEventListener("click", function () {
+  axios
+    .post("./delete-all", { delete_all: true })
+    .then((res) => alert(res.data.state));
+  document.location.reload();
+});
+
+//Atlas’da database turadi, Compass esa uni ko‘rib va boshqarish uchun developer asbobi

@@ -25,7 +25,8 @@ Ya’ni:
 3 -collection → jadvalga o‘xshash
 4 -document → bitta yozuv (JSON)
 */
-const db = require("./server").db(); // server.js dagi db() bilan mos// server.js da export qilgan nom //server fayldan kelgan object, ichidagi db nomli funksiyani oladi //db() → funksiya MongoDB ga ulanadi, database qaytaradi
+const db = require("./server").db();
+//db bu databse mizga bog'langan object // server.js dagi db() bilan mos// server.js da export qilgan nom //server fayldan kelgan object, ichidagi db nomli funksiyani oladi //db() → funksiya MongoDB ga ulanadi, database qaytaradi
 //db bu mongodb ning database objecti
 const mongodb = require("mongodb");
 
@@ -97,18 +98,7 @@ app.set("view engine", "ejs"); // => Express’ga: “HTMLni EJS orqali generats
 //     }
 //   });
 // });
-
-app.post("/create-item", (req, res) => {
-  console.log("User entred /create-item");
-
-  const new_reja = req.body.reja;
-  // console.log(req.body);
-  db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
-    // console.log(data.ops);
-    res.json(data.ops[0]);
-  });
-});
-
+//---------------------------------------------------------------------------
 app.post("/delete-item", (req, res) => {
   const id = req.body.id;
 
@@ -124,12 +114,46 @@ app.post("/delete-item", (req, res) => {
     }
   );
 });
+//---------------------------------------------------------------------------
+app.post("/delete-all", (req, res) => {
+  if (req.body.delete_all) {
+    db.collection("plans").deleteMany(function () {
+      res.json({ state: "hamma rejalar ochirildi" });
+    });
+  }
+});
+//---------------------------------------------------------------------------
+app.post("/edit-item", (req, res) => {
+  const data = req.body;
+  console.log(data);
+  db.collection("plans").findOneAndUpdate(
+    { _id: new mongodb.ObjectId(data.id) },
+    { $set: { reja: data.new_input } },
+    function (err, data) {
+      res.json({ state: "success" });
+    }
+  );
+});
+//---------------------------------------------------------------------------
+app.post("/create-item", (req, res) => {
+  // create-item degan linkdan so'rov qabul qilib olaman va so'roq req ga kelib tushadi va yuborilgan so'rovni o'zini ko'rish uchun req.body qilinadi
+  console.log("User entred /create-item");
 
+  const new_reja = req.body.reja; // reja  formni ichidagi inputni name va o'sha namega inputni value si biriktirilgan bo'ladi
+  // console.log(req.body);
+  db.collection("plans").insertOne({ reja: new_reja }, (err, data) => {
+    //database ni  ichidagi plans degan collectionga bitta data qo'sh uni key reja bo'lsin value si inputdan kelgan value bo'lsin degani
+    console.log(data.ops); // ops mongodb ga kiritilgan hujjat nusxasi
+    res.json(data.ops[0]); //MongoDB ga endi qo‘shilgan documentni  json ko'rinishiga o'girib frontendga yuborish
+  });
+});
+//---------------------------------------------------------------------------
 app.get("/", (req, res) => {
   console.log("User entred / ");
   db.collection("plans")
     .find()
     .toArray((err, data) => {
+      //database dan kelga ma'lumotni arrayga o'tkazdik
       if (err) {
         console.log(err);
         res.send("Something went wrong");
@@ -146,7 +170,7 @@ module.exports = app;
 //   // ma'lumot o'qish uchun
 //   res.render("harid");
 // });
-
+//---------------------------------------------------------------------------
 app.get("/author", (req, res) => {
   res.render("author", { user: user }); // res.render("page", { NIMA_NOM_BILAN: QAYSI_MAʼLUMOT })
   // "qaysi ma'lumot"  deganda database dan kelgan json ma'lumotni object sifatida qbul qilib olgan o'zgaruvchi nomini yozamiz
