@@ -222,17 +222,41 @@
 // shop.qoldiq(); // Hozir 20:50da 1ta non, 5ta lagmon va 6ta cola mavjud!
 
 //TASK C
-function checkContent(str1, str2) {
-  // Agar uzunliklari teng bo‘lmasa — darrov false
-  if (str1.length !== str2.length) return false;
+// function checkContent(str1, str2) {
+//   // Agar uzunliklari teng bo‘lmasa — darrov false
+//   if (str1.length !== str2.length) return false;
 
-  // Harflarni sort qilib solishtiramiz
-  const sorted1 = str1.split("").sort().join("");
-  const sorted2 = str2.split("").sort().join("");
+//   // Harflarni sort qilib solishtiramiz
+//   const sorted1 = str1.split("").sort().join("");
+//   const sorted2 = str2.split("").sort().join("");
 
-  return sorted1 === sorted2;
+//   return sorted1 === sorted2;
+// }
+
+// console.log(checkContent("mitgroup", "gmtiprou"));
+// console.log(checkContent("abc", "ab"));
+// console.log(checkContent("test", "taste"));
+
+//TASK F
+function findDoublers(str) {
+  for (let i = 0; i < str.length; i++) {
+    for (let j = i + 1; j < str.length; j++) {
+      if (str[i] === str[j]) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
-console.log(checkContent("mitgroup", "gmtiprou"));
-console.log(checkContent("abc", "ab"));
-console.log(checkContent("test", "taste"));
+// Test
+console.log(findDoublers("salom"));
+console.log(findDoublers("G'ayrat qilamiz"));
+
+// 2- USUL
+function findDoublers(str) {
+  return new Set(str).size !== str.length;
+}
+
+console.log(findDoublers("hello"));
+console.log(findDoublers("world"));
